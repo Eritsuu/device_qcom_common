@@ -47,7 +47,7 @@ QCOM_BOARD_PLATFORMS += \
     taro
 
 # List of targets that use video hardware.
-MSM_VIDC_TARGET_LIST := \
+MSM_VIDC_TARGET_LIST ?= \
     $(MSMSTEPPE) \
     $(TRINKET) \
     atoll \
@@ -181,13 +181,6 @@ PRODUCT_COPY_FILES += \
     $(QCOM_COMMON_PATH)/configs/public.libraries.product-qti.txt:$(TARGET_COPY_OUT_PRODUCT)/etc/public.libraries-qti.txt \
     $(QCOM_COMMON_PATH)/configs/public.libraries.system_ext-qti.txt:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/public.libraries-qti.txt
 
-# SECCOMP Extensions
-PRODUCT_COPY_FILES += \
-    $(QCOM_COMMON_PATH)/vendor/seccomp/codec2.software.ext.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.software.ext.policy \
-    $(QCOM_COMMON_PATH)/vendor/seccomp/codec2.vendor.ext.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.vendor.ext.policy \
-    $(QCOM_COMMON_PATH)/vendor/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
-    $(QCOM_COMMON_PATH)/vendor/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
-
 # EGL blobcache configuration
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.egl.blobcache.multifile=true \
@@ -213,6 +206,9 @@ PRODUCT_PACKAGES += \
     libhwbinder \
     libhwbinder.vendor \
     android.hidl.allocator@1.0.vendor
+
+# Media
+TARGET_DYNAMIC_64_32_MEDIASERVER := true
 
 # Partition source order for Product/Build properties pickup.
 PRODUCT_SYSTEM_PROPERTIES += \
@@ -251,5 +247,117 @@ PRODUCT_PACKAGES += \
     libtextclassifier_annotator_universal_model \
     libtextclassifier_actions_suggestions_universal_model \
     libtextclassifier_lang_id_model
+
+# usbudev service for usb ip assigment
+PRODUCT_PACKAGES += \
+    usbudev
+
+# RFS APQ GNSS symlinks
+PRODUCT_PACKAGES += \
+    rfs_apq_gnss_hlos_symlink \
+    rfs_apq_gnss_ramdumps_symlink \
+    rfs_apq_gnss_readonly_firmware_symlink \
+    rfs_apq_gnss_readonly_vendor_firmware_symlink \
+    rfs_apq_gnss_readwrite_symlink \
+    rfs_apq_gnss_shared_symlink
+
+# RFS MDM ADSP symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_adsp_hlos_symlink \
+    rfs_mdm_adsp_ramdumps_symlink \
+    rfs_mdm_adsp_readonly_firmware_symlink \
+    rfs_mdm_adsp_readonly_vendor_firmware_symlink \
+    rfs_mdm_adsp_readwrite_symlink \
+    rfs_mdm_adsp_shared_symlink
+
+# RFS MDM CDSP symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_cdsp_hlos_symlink \
+    rfs_mdm_cdsp_ramdumps_symlink \
+    rfs_mdm_cdsp_readonly_firmware_symlink \
+    rfs_mdm_cdsp_readonly_vendor_firmware_symlink \
+    rfs_mdm_cdsp_readwrite_symlink \
+    rfs_mdm_cdsp_shared_symlink
+
+# RFS MDM MPSS symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_mpss_hlos_symlink \
+    rfs_mdm_mpss_ramdumps_symlink \
+    rfs_mdm_mpss_readonly_firmware_symlink \
+    rfs_mdm_mpss_readonly_vendor_firmware_symlink \
+    rfs_mdm_mpss_readwrite_symlink \
+    rfs_mdm_mpss_shared_symlink
+
+# RFS MDM SLPI symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_slpi_hlos_symlink \
+    rfs_mdm_slpi_ramdumps_symlink \
+    rfs_mdm_slpi_readonly_firmware_symlink \
+    rfs_mdm_slpi_readonly_vendor_firmware_symlink \
+    rfs_mdm_slpi_readwrite_symlink \
+    rfs_mdm_slpi_shared_symlink
+
+# RFS MDM TN symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_tn_hlos_symlink \
+    rfs_mdm_tn_ramdumps_symlink \
+    rfs_mdm_tn_readonly_firmware_symlink \
+    rfs_mdm_tn_readonly_vendor_firmware_symlink \
+    rfs_mdm_tn_readwrite_symlink \
+    rfs_mdm_tn_shared_symlink
+
+# RFS MDM WPSS symlinks
+PRODUCT_PACKAGES += \
+    rfs_mdm_wpss_hlos_symlink \
+    rfs_mdm_wpss_ramdumps_symlink \
+    rfs_mdm_wpss_readonly_firmware_symlink \
+    rfs_mdm_wpss_readonly_vendor_firmware_symlink \
+    rfs_mdm_wpss_readwrite_symlink \
+    rfs_mdm_wpss_shared_symlink
+
+# RFS MSM ADSP symlinks
+PRODUCT_PACKAGES += \
+    rfs_msm_adsp_hlos_symlink \
+    rfs_msm_adsp_ramdumps_symlink \
+    rfs_msm_adsp_readonly_firmware_symlink \
+    rfs_msm_adsp_readonly_vendor_firmware_symlink \
+    rfs_msm_adsp_readwrite_symlink \
+    rfs_msm_adsp_shared_symlink
+
+# RFS MSM CDSP symlinks
+PRODUCT_PACKAGES += \
+    rfs_msm_cdsp_hlos_symlink \
+    rfs_msm_cdsp_ramdumps_symlink \
+    rfs_msm_cdsp_readonly_firmware_symlink \
+    rfs_msm_cdsp_readonly_vendor_firmware_symlink \
+    rfs_msm_cdsp_readwrite_symlink \
+    rfs_msm_cdsp_shared_symlink
+
+# RFS MSM MPSS symlinks
+PRODUCT_PACKAGES += \
+    rfs_msm_mpss_hlos_symlink \
+    rfs_msm_mpss_ramdumps_symlink \
+    rfs_msm_mpss_readonly_firmware_symlink \
+    rfs_msm_mpss_readonly_vendor_firmware_symlink \
+    rfs_msm_mpss_readwrite_symlink \
+    rfs_msm_mpss_shared_symlink
+
+# RFS MSM SLPI symlinks
+PRODUCT_PACKAGES += \
+    rfs_msm_slpi_hlos_symlink \
+    rfs_msm_slpi_ramdumps_symlink \
+    rfs_msm_slpi_readonly_firmware_symlink \
+    rfs_msm_slpi_readonly_vendor_firmware_symlink \
+    rfs_msm_slpi_readwrite_symlink \
+    rfs_msm_slpi_shared_symlink
+
+# RFS MSM WPSS symlinks
+PRODUCT_PACKAGES += \
+    rfs_msm_wpss_hlos_symlink \
+    rfs_msm_wpss_ramdumps_symlink \
+    rfs_msm_wpss_readonly_firmware_symlink \
+    rfs_msm_wpss_readonly_vendor_firmware_symlink \
+    rfs_msm_wpss_readwrite_symlink \
+    rfs_msm_wpss_shared_symlink
 
 endif # QCOM_BOARD_PLATFORMS

@@ -16,20 +16,8 @@
 -include hardware/qcom/display/config/display-board.mk
 -include hardware/qcom/display/config/display-product.mk
 
-# Enable Legacy Lights HAL for <5.10 targets
-ifneq (,$(filter 3.18 4.4 4.9 4.14 4.19 5.4, $(TARGET_KERNEL_VERSION)))
-
-# Lights HAL
-PRODUCT_PACKAGES += \
-    android.hardware.lights-service.qti \
-    lights.qcom
-
-else # >= 5.10
-
-# Include QTI AIDL Lights HAL for 5.10
+# Include QTI AIDL Lights HAL
 -include vendor/qcom/opensource/lights/lights-vendor-product.mk
-
-endif # >= 5.10
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -54,6 +42,8 @@ ifneq (,$(filter 3.18 4.4 4.9 4.14 4.19 5.4, $(TARGET_KERNEL_VERSION)))
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.predict_hwc_composition_strategy=0 \
     debug.sf.treat_170m_as_sRGB=1
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.game_default_frame_rate_override=60
 endif
 
 # Properties for <5.4 targets
@@ -85,11 +75,6 @@ endif
 ifneq (,$(filter 3.18 4.4 4.9 4.14 4.19 5.4 5.10 5.15, $(TARGET_KERNEL_VERSION)))
 TARGET_GRALLOC_HANDLE_HAS_NO_UBWCP := true
 endif
-
-# REVERTME WHEN WE HAVE ANDROID 14 QPR1 BLOBS
-# Disable SmoMo / Smooth Motion
-PRODUCT_ODM_PROPERTIES += \
-    vendor.display.use_smooth_motion=0
 
 # Use TARGET_KERNEL_VERSION for TARGET_DISP_DIR unless otherwise specified
 ifeq ($(TARGET_KERNEL_VERSION)_$(TARGET_BOARD_PLATFORM),5.15_bengal)

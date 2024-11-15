@@ -35,6 +35,7 @@ PRODUCT_PACKAGES += \
     extphonelib_product.xml \
     ims-ext-common \
     ims_ext_common.xml \
+    libc++.product \
     libjson \
     Stk \
     tcmiface \
@@ -46,8 +47,7 @@ PRODUCT_PACKAGES += \
     qti-telephony-utils \
     qti-telephony-utils-prd \
     qti_telephony_utils.xml \
-    qti_telephony_utils_prd.xml \
-    vendor.qti.hardware.systemhelperaidl-V1-ndk
+    qti_telephony_utils_prd.xml
 
 PRODUCT_BOOT_JARS += \
     tcmiface \

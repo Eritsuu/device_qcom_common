@@ -28,18 +28,23 @@ TARGET_USES_RRO := true
 AUDIO_FEATURE_ENABLED_DYNAMIC_LOG := false
 BOARD_SUPPORTS_OPENSOURCE_STHAL := false
 
+$(call soong_config_set,tinycompress,enable_extended_compress_format,true)
+
 # Flags for <5.10 targets
 ifneq (,$(filter 3.18 4.4 4.9 4.14 4.19 5.4, $(TARGET_KERNEL_VERSION)))
-TARGET_LOOP_COMPRESS_READ := true
+$(call soong_config_set,tinycompress,loop_compress_read,true)
 endif
 
-# OMX Packages
-PRODUCT_PACKAGES += \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc
+# OMX not supported for 64bit_only builds
+# Only supported when SHIPPING_API_LEVEL is less than or equal to 33
+ifneq ($(TARGET_SUPPORTS_OMX_SERVICE),false)
+    PRODUCT_PACKAGES_SHIPPING_API_LEVEL_33 += \
+        libOmxAacEnc \
+        libOmxAmrEnc \
+        libOmxEvrcEnc \
+        libOmxG711Enc \
+        libOmxQcelp13Enc
+endif
 
 # Audio Packages
 PRODUCT_PACKAGES += \
